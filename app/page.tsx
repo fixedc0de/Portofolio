@@ -263,7 +263,7 @@ export default function Home() {
         </section>
 
         <footer className="mt-20 text-center text-white/30 text-sm pb-24">
-          <p>© 2026 Khansa Gunawan • Dibuat dengan ❤️ dan AI</p>
+          <p>© 2026 Khansa Gunawan • Fixedc0de</p>
         </footer>
       </div>
 
