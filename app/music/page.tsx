@@ -6,10 +6,19 @@ import MusicPlayer, { Track } from "@/components/MusicPlayer";
 export const dynamic = 'force-dynamic';
 
 export default async function MusicPage() {
-  // Cast hasil query ke tipe Track[]
-  const tracks = await sql`
-    SELECT * FROM tracks ORDER BY track_order ASC, created_at DESC
-  ` as unknown as Track[];
+  let tracks: Track[] = [];
+  let error = null;
+
+  try {
+    // Query database dengan error handling
+    const result = await sql`
+      SELECT * FROM tracks ORDER BY track_order ASC, created_at DESC
+    `;
+    tracks = result as unknown as Track[];
+  } catch (err: any) {
+    console.error('Error fetching tracks:', err);
+    error = err.message || 'Failed to load tracks';
+  }
 
   return (
     <>
@@ -34,6 +43,18 @@ export default async function MusicPage() {
               Kumpulan lagu favorit yang menemani perjalanan saya. Tekan play untuk mendengarkan!
             </p>
           </div>
+
+          {/* Error Message */}
+          {error && (
+            <div className="mb-8 p-4 bg-red-500/20 border border-red-400/30 rounded-xl">
+              <p className="text-red-200 text-sm">
+                <strong>Error:</strong> {error}
+              </p>
+              <p className="text-red-300/70 text-xs mt-2">
+                Pastikan tabel <code className="bg-white/10 px-1 rounded">tracks</code> sudah dibuat di Neon Database.
+              </p>
+            </div>
+          )}
 
           {/* Tracks List */}
           {tracks.length > 0 ? (
@@ -87,7 +108,7 @@ export default async function MusicPage() {
                 </div>
               ))}
             </div>
-          ) : (
+          ) : !error ? (
             <div className="text-center py-20 bg-white/5 border border-white/10 rounded-2xl">
               <div className="w-16 h-16 mx-auto mb-4 bg-amber-500/20 border border-amber-400/30 rounded-full flex items-center justify-center">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 text-amber-300/60">
@@ -97,7 +118,7 @@ export default async function MusicPage() {
               <p className="text-white/60 mb-2">Belum ada lagu</p>
               <p className="text-white/40 text-sm">Upload lagu melalui Admin Panel</p>
             </div>
-          )}
+          ) : null}
 
           {/* Info Box */}
           <div className="mt-12 bg-white/5 border border-white/10 rounded-xl p-6">
@@ -120,7 +141,7 @@ export default async function MusicPage() {
         </div>
       </main>
 
-      {/* Music Player */}
+      {/* Music Player - hanya render jika ada tracks */}
       {tracks.length > 0 && <MusicPlayer tracks={tracks} />}
     </>
   );

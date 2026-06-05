@@ -1,0 +1,18 @@
+{
+    "functions": {
+      "app/api/upload-music/route.ts": {
+        "maxDuration": 60
+      }
+    },
+    "headers": [
+      {
+        "source": "/api/(.*)",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "no-store, must-revalidate"
+          }
+        ]
+      }
+    ]
+  }
