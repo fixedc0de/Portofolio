@@ -16,6 +16,12 @@ const protectedMethods = ['POST', 'PUT', 'DELETE', 'PATCH'];
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
+  // ⚠️ PENTING: Exclude halaman login dari proteksi
+  // Halaman login harus bisa diakses tanpa token
+  if (pathname === '/admin/login') {
+    return NextResponse.next();
+  }
+
   // Cek apakah path dilindungi
   const isProtectedPath = protectedPaths.some(path => 
     pathname.startsWith(path)
