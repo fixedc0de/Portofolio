@@ -95,10 +95,3 @@ Buka **http://localhost:3000**
 
 MIT License - Lihat file [LICENSE](LICENSE) untuk detail.
 
----
-
-<div align="center">
-
-**Dibuat dengan ❤️ oleh Khansa Gunawan**
-
-</div>
