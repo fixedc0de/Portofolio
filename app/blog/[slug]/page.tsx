@@ -5,9 +5,16 @@ import ReactMarkdown from 'react-markdown';
 
 export const dynamic = 'force-dynamic';
 
-export default async function BlogDetailPage({ params }: { params: { slug: string } }) {
+// PERBAIKAN: params sekarang adalah Promise
+export default async function BlogDetailPage({ 
+  params 
+}: { 
+  params: Promise<{ slug: string }> 
+}) {
+  const { slug } = await params; // <-- WAJIB di-await
+
   const blogs = await sql`
-    SELECT * FROM blogs WHERE slug = ${params.slug} AND published = true
+    SELECT * FROM blogs WHERE slug = ${slug} AND published = true
   `;
 
   if (blogs.length === 0) {

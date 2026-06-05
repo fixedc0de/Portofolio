@@ -2,13 +2,16 @@
 import { NextResponse } from 'next/server';
 import sql from '@/lib/db';
 
+// PERBAIKAN: params sekarang adalah Promise
 export async function GET(
   req: Request,
-  { params }: { params: { slug: string } }
+  { params }: { params: Promise<{ slug: string }> }
 ) {
   try {
+    const { slug } = await params; // <-- WAJIB di-await
+    
     const blogs = await sql`
-      SELECT * FROM blogs WHERE slug = ${params.slug}
+      SELECT * FROM blogs WHERE slug = ${slug}
     `;
     
     if (blogs.length === 0) {
@@ -24,9 +27,10 @@ export async function GET(
 
 export async function PUT(
   req: Request,
-  { params }: { params: { slug: string } }
+  { params }: { params: Promise<{ slug: string }> }
 ) {
   try {
+    const { slug } = await params; // <-- WAJIB di-await
     const { title, content, excerpt, cover_image, published } = await req.json();
     
     const blog = await sql`
@@ -34,7 +38,7 @@ export async function PUT(
       SET title = ${title}, content = ${content}, excerpt = ${excerpt}, 
           cover_image = ${cover_image}, published = ${published},
           updated_at = CURRENT_TIMESTAMP
-      WHERE slug = ${params.slug}
+      WHERE slug = ${slug}
       RETURNING *
     `;
     
@@ -47,10 +51,12 @@ export async function PUT(
 
 export async function DELETE(
   req: Request,
-  { params }: { params: { slug: string } }
+  { params }: { params: Promise<{ slug: string }> }
 ) {
   try {
-    await sql`DELETE FROM blogs WHERE slug = ${params.slug}`;
+    const { slug } = await params; // <-- WAJIB di-await
+    
+    await sql`DELETE FROM blogs WHERE slug = ${slug}`;
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error('Error deleting blog:', error);
