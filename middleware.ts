@@ -8,6 +8,8 @@ const protectedPaths = [
   '/api/blogs',
   '/api/projects',
   '/api/upload',
+  '/api/upload-music',  // Tambahkan ini
+  '/api/music',         // Tambahkan ini (untuk POST/DELETE)
 ];
 
 // Methods yang memerlukan autentikasi (untuk API)

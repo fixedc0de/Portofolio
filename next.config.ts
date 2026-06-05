@@ -29,6 +29,7 @@ const nextConfig: NextConfig = {
             value: 'camera=(), microphone=(), geolocation=()',
           },
           // Content Security Policy - UPDATED dengan frame-src untuk YouTube
+          // Di next.config.ts, update bagian Content-Security-Policy
           {
             key: 'Content-Security-Policy',
             value: `
@@ -38,8 +39,8 @@ const nextConfig: NextConfig = {
               img-src 'self' data: https: blob:;
               font-src 'self';
               connect-src 'self' https://api.groq.com https://openrouter.ai https://*.neon.tech https://*.vercel-storage.com;
-              frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com https://open.spotify.com https://player.vimeo.com;
-              media-src 'self' https://www.youtube.com https://www.youtube-nocookie.com;
+              frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com https://open.spotify.com;
+              media-src 'self' https://*.vercel-storage.com blob:;
               frame-ancestors 'none';
             `.replace(/\s+/g, ' ').trim(),
           },
