@@ -102,6 +102,18 @@ export default function AdminPage() {
           </h1>
           <p className="text-white/60">Buat dan kelola artikel blog Anda</p>
         </div>
+        // Tambahkan di bagian atas form, setelah <div className="mb-8">
+        <div className="flex justify-end mb-4">
+          <button
+            onClick={async () => {
+              await fetch("/api/auth/logout", { method: "POST" });
+              window.location.href = "/";
+            }}
+            className="px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-sm hover:bg-white/20 transition-all"
+          >
+            Logout
+          </button>
+        </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Title */}
