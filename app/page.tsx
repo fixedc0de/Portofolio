@@ -2,6 +2,7 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
+import Link from 'next/link';
 
 type Message = {
   role: "user" | "assistant";
@@ -234,6 +235,30 @@ export default function Home() {
                     {skill}
                   </span>
                 ))}
+              </div>
+              // Tambahkan di bagian Hero Section, setelah skills
+              <div className="flex flex-wrap gap-3 pt-4">
+                {["Web Development", "AI Enthusiast", "Problem Solver"].map((skill) => (
+                  <span key={skill} className="px-5 py-2 bg-white/5 border border-white/10 rounded-full text-sm text-white/80 hover:bg-white/10 hover:border-amber-400/30 transition-all duration-300 cursor-default">
+                    {skill}
+                  </span>
+                ))}
+              </div>
+
+              {/* Tambahkan navigation buttons */}
+              <div className="flex gap-4 pt-6">
+                <Link 
+                  href="/blog"
+                  className="px-6 py-3 bg-gradient-to-br from-amber-500 to-rose-500 rounded-xl font-medium hover:from-amber-400 hover:to-rose-400 transition-all shadow-lg shadow-amber-500/20"
+                >
+                  Baca Blog
+                </Link>
+                <Link 
+                  href="/projects"
+                  className="px-6 py-3 bg-white/10 border border-white/20 rounded-xl font-medium hover:bg-white/20 transition-all"
+                >
+                  Lihat Projects
+                </Link>
               </div>
             </div>
 
