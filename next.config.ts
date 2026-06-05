@@ -11,7 +11,7 @@ const nextConfig: NextConfig = {
           // Mencegah clickjacking
           {
             key: 'X-Frame-Options',
-            value: 'DENY',
+            value: 'SAMEORIGIN', // Diubah dari DENY agar iframe sendiri bisa jalan
           },
           // Mencegah MIME type sniffing
           {
@@ -28,7 +28,7 @@ const nextConfig: NextConfig = {
             key: 'Permissions-Policy',
             value: 'camera=(), microphone=(), geolocation=()',
           },
-          // Content Security Policy
+          // Content Security Policy - UPDATED dengan frame-src untuk YouTube
           {
             key: 'Content-Security-Policy',
             value: `
@@ -38,6 +38,8 @@ const nextConfig: NextConfig = {
               img-src 'self' data: https: blob:;
               font-src 'self';
               connect-src 'self' https://api.groq.com https://openrouter.ai https://*.neon.tech https://*.vercel-storage.com;
+              frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com https://open.spotify.com https://player.vimeo.com;
+              media-src 'self' https://www.youtube.com https://www.youtube-nocookie.com;
               frame-ancestors 'none';
             `.replace(/\s+/g, ' ').trim(),
           },
@@ -61,6 +63,14 @@ const nextConfig: NextConfig = {
       {
         protocol: 'https',
         hostname: '*.neon.tech',
+      },
+      {
+        protocol: 'https',
+        hostname: 'img.youtube.com', // Thumbnail YouTube
+      },
+      {
+        protocol: 'https',
+        hostname: 'i.ytimg.com', // Thumbnail YouTube alternatif
       },
     ],
   },
