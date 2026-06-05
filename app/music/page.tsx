@@ -1,14 +1,15 @@
 // app/music/page.tsx
 import Link from "next/link";
 import sql from "@/lib/db";
-import MusicPlayer from "@/components/MusicPlayer";
+import MusicPlayer, { Track } from "@/components/MusicPlayer";
 
 export const dynamic = 'force-dynamic';
 
 export default async function MusicPage() {
+  // Cast hasil query ke tipe Track[]
   const tracks = await sql`
     SELECT * FROM tracks ORDER BY track_order ASC, created_at DESC
-  `;
+  ` as unknown as Track[];
 
   return (
     <>
@@ -37,7 +38,7 @@ export default async function MusicPage() {
           {/* Tracks List */}
           {tracks.length > 0 ? (
             <div className="space-y-3">
-              {tracks.map((track: any, index: number) => (
+              {tracks.map((track, index) => (
                 <div
                   key={track.id}
                   className="group bg-white/5 border border-white/10 rounded-xl p-4 hover:bg-white/10 hover:border-amber-400/30 transition-all"
@@ -74,7 +75,6 @@ export default async function MusicPage() {
                     {/* Play Button */}
                     <button
                       onClick={() => {
-                        // Kirim event ke player via custom event
                         window.dispatchEvent(new CustomEvent('playTrack', { detail: { index } }));
                       }}
                       className="flex-shrink-0 w-10 h-10 rounded-full bg-amber-500/20 border border-amber-400/30 flex items-center justify-center hover:bg-amber-500/30 transition-all opacity-0 group-hover:opacity-100"
