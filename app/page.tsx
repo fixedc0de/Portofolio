@@ -236,7 +236,6 @@ export default function Home() {
                   </span>
                 ))}
               </div>
-              // Tambahkan di bagian Hero Section, setelah skills
               <div className="flex flex-wrap gap-3 pt-4">
                 {["Web Development", "AI Enthusiast", "Problem Solver"].map((skill) => (
                   <span key={skill} className="px-5 py-2 bg-white/5 border border-white/10 rounded-full text-sm text-white/80 hover:bg-white/10 hover:border-amber-400/30 transition-all duration-300 cursor-default">
