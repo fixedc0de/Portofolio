@@ -2,29 +2,32 @@
 import Link from "next/link";
 
 export default function MusicPage() {
-  // Ganti dengan Playlist ID Spotify Anda
-  // Cara dapat: Buka playlist di Spotify → Click "..." → Share → Copy Playlist Link
-  // Link format: https://open.spotify.com/playlist/37i9dQZF1DXcBWIGoYBM5M
-  // Playlist ID: 37i9dQZF1DXcBWIGoYBM5M (bagian setelah /playlist/)
+  // Ganti dengan Playlist ID YouTube Anda
+  // Cara dapat: Buka playlist di YouTube → Lihat URL
+  // Link format: https://www.youtube.com/playlist?list=PLrAXtmErZgOeiKm4sgNOknGvNjby9efdf
+  // Playlist ID: PLrAXtmErZgOeiKm4sgNOknGvNjby9efdf (bagian setelah list=)
   
   const playlists = [
     {
       title: "Favorites",
       description: "Lagu-lagu favorit yang menemani keseharian saya",
-      spotifyId: "4ceyu2sM4Jm9g647ht5WZR", // GANTI DENGAN PLAYLIST ID ANDA
+      youtubeId: "PLtz9ombNXUfYAQPoIE95wiusLVA-AHQSl", // GANTI DENGAN PLAYLIST ID YOUTUBE ANDA
       color: "from-amber-500/20 to-rose-500/20",
+      icon: "🎵",
     },
     {
       title: "Coding Vibes",
       description: "Playlist untuk fokus coding dan belajar",
-      spotifyId: "4ceyu2sM4Jm9g647ht5WZR", // GANTI DENGAN PLAYLIST ID ANDA
+      youtubeId: "PLtz9ombNXUfYAQPoIE95wiusLVA-AHQSl", // GANTI DENGAN PLAYLIST ID YOUTUBE ANDA
       color: "from-blue-500/20 to-purple-500/20",
+      icon: "💻",
     },
     {
       title: "Chill & Relax",
       description: "Musik santai untuk waktu istirahat",
-      spotifyId: "4ceyu2sM4Jm9g647ht5WZR", // GANTI DENGAN PLAYLIST ID ANDA
+      youtubeId: "PLtz9ombNXUfYAQPoIE95wiusLVA-AHQSl", // GANTI DENGAN PLAYLIST ID YOUTUBE ANDA
       color: "from-emerald-500/20 to-teal-500/20",
+      icon: "🌿",
     },
   ];
 
@@ -56,21 +59,22 @@ export default function MusicPage() {
           {playlists.map((playlist, index) => (
             <div key={index} className="space-y-4">
               <div className={`bg-gradient-to-br ${playlist.color} border border-white/10 rounded-2xl p-8`}>
-                <h2 className="text-2xl font-semibold mb-2">{playlist.title}</h2>
+                <div className="flex items-center gap-3 mb-2">
+                  <span className="text-3xl">{playlist.icon}</span>
+                  <h2 className="text-2xl font-semibold">{playlist.title}</h2>
+                </div>
                 <p className="text-white/70 mb-6">{playlist.description}</p>
                 
-                {/* Spotify Embed */}
-                <div className="rounded-xl overflow-hidden">
+                {/* YouTube Embed - Responsive 16:9 */}
+                <div className="relative rounded-xl overflow-hidden bg-black/40" style={{ paddingBottom: '56.25%' }}>
                   <iframe
-                    src={`https://open.spotify.com/embed/playlist/${playlist.spotifyId}?utm_source=generator&theme=0`}
-                    width="100%"
-                    height="352"
+                    src={`https://www.youtube.com/embed/videoseries?list=${playlist.youtubeId}`}
+                    title={playlist.title}
+                    className="absolute top-0 left-0 w-full h-full rounded-xl"
                     frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     allowFullScreen
-                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
                     loading="lazy"
-                    className="rounded-xl"
-                    style={{ minHeight: '352px' }}
                   ></iframe>
                 </div>
               </div>
@@ -81,17 +85,17 @@ export default function MusicPage() {
         {/* Info Box */}
         <div className="mt-12 bg-white/5 border border-white/10 rounded-xl p-6">
           <div className="flex items-start gap-4">
-            <div className="flex-shrink-0 w-10 h-10 bg-amber-500/20 border border-amber-400/30 rounded-full flex items-center justify-center">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5 text-amber-300">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9 9l10.5-3m0 6.553v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 11-.99-3.467l2.31-.66a2.25 2.25 0 001.632-2.163zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 01-.99-3.467l2.31-.66A2.25 2.25 0 009 15.553z" />
+            <div className="flex-shrink-0 w-10 h-10 bg-red-500/20 border border-red-400/30 rounded-full flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 text-red-400">
+                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
               </svg>
             </div>
             <div>
               <h3 className="font-semibold text-white mb-2">Tentang Playlist Ini</h3>
               <p className="text-white/70 text-sm leading-relaxed">
                 Playlist ini berisi lagu-lagu yang saya sukai dan sering saya dengarkan. 
-                Anda bisa langsung memutar lagu di sini tanpa perlu membuka aplikasi Spotify. 
-                Jika Anda memiliki akun Spotify, Anda juga bisa save playlist ini ke library Anda!
+                Anda bisa langsung memutar lagu di sini tanpa perlu membuka YouTube. 
+                Selamat mendengarkan! 🎧
               </p>
             </div>
           </div>
