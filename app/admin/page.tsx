@@ -102,7 +102,8 @@ export default function AdminPage() {
           </h1>
           <p className="text-white/60">Buat dan kelola artikel blog Anda</p>
         </div>
-        // Tambahkan di bagian atas form, setelah <div className="mb-8">
+
+        {/* Tombol Logout */}
         <div className="flex justify-end mb-4">
           <button
             onClick={async () => {
