@@ -3,7 +3,7 @@
 import { Suspense, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
-// 1. Pindahkan logika form ke dalam komponen terpisah
+// Komponen Form Login (menggunakan useSearchParams)
 function LoginForm() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -77,12 +77,11 @@ function LoginForm() {
   );
 }
 
-// 2. Komponen Utama Halaman (Membungkus dengan Suspense)
+// Komponen Utama (membungkus LoginForm dengan Suspense)
 export default function LoginPage() {
   return (
     <main className="min-h-screen bg-[#0a0a0a] text-white flex items-center justify-center px-6">
       <div className="w-full max-w-md">
-        {/* Suspense boundary WAJIB untuk useSearchParams */}
         <Suspense fallback={
           <div className="bg-white/5 border border-white/10 rounded-2xl p-8 text-center">
             <div className="animate-pulse text-white/60">Memuat halaman login...</div>
